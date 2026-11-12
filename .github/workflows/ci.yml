@@ -1,0 +1,58 @@
+# Checks every push and pull request, on each supported PHP version, with
+# the rules of the framework: code style, types, static analysis and the
+# tests. The modules are checked where they live in a project: in the
+# extra/ directory of Kohana 4.
+#
+# Tests that need a database, FTP or S3 server are skipped here.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.4', '8.5']
+
+    steps:
+      - name: Check out the framework
+        uses: actions/checkout@v4
+        with:
+          repository: uBizzy/kohana4
+
+      - name: Check out the modules into extra/
+        uses: actions/checkout@v4
+        with:
+          path: extra
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, intl, gd, exif, mysqli, pdo_mysql, pdo_pgsql, pdo_sqlite, sodium, zip, ftp
+          ini-values: error_reporting=E_ALL
+          coverage: none
+
+      - name: Install Composer packages
+        run: composer install --no-interaction --no-progress
+
+      - name: Code style
+        run: vendor/bin/phpcs -q extra
+
+      - name: Everything has a type
+        run: php docker/check-types.php extra/*/classes
+
+      - name: Static analysis
+        run: vendor/bin/phpstan analyse -c extra/phpstan.neon --no-progress --memory-limit=1G
+
+      - name: Tests
+        run: vendor/bin/phpunit -c extra/phpunit.xml

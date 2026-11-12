@@ -1,0 +1,78 @@
+/*
+ * Styles of the debug bar. The colours are the variables of the theme
+ * (Theme::css()), shared with the error page.
+ */
+.ub-debug {
+	position: fixed; left: 0; right: 0; bottom: 0; z-index: 2147483000;
+	background: transparent; font-size: 13px; line-height: 1.4;
+}
+.ub-debug [hidden] { display: none !important; }
+
+/* The line that is always visible */
+.ub-debug .k-db-bar {
+	display: flex; align-items: center; gap: 0.2em 0.9em; flex-wrap: wrap;
+	padding: 0.35em 0.8em; background: var(--k-bar); color: var(--k-bar-text);
+	border-top: 1px solid var(--k-edge); box-shadow: 0 -2px 8px var(--k-shadow);
+}
+.ub-debug .k-db-item { white-space: nowrap; }
+.ub-debug .k-db-route { font-family: var(--k-font-code); font-size: 12px; }
+.ub-debug .k-db-end { margin-left: auto; display: flex; align-items: center; gap: 0.8em; white-space: nowrap; }
+.ub-debug .k-db-version { opacity: 0.75; font-size: 12px; }
+.ub-debug .k-db-tabs { display: flex; flex-wrap: wrap; gap: 0.2em; }
+
+.ub-debug button { text-decoration: none; color: inherit; }
+.ub-debug .k-db-logo { display: flex; align-items: center; padding: 0.1em 0.4em; border-radius: var(--k-radius); background: var(--k-glass); }
+.ub-debug .k-db-logo .k-logo { height: 1.4em; width: auto; }
+.ub-debug .k-db-tab { padding: 0.15em 0.6em; border-radius: var(--k-radius); border: 1px solid transparent; }
+.ub-debug .k-db-tab:hover { background: var(--k-glass); color: inherit; }
+.ub-debug .k-db-tab[aria-expanded="true"] { background: var(--k-surface); border-color: var(--k-edge); }
+.ub-debug .k-db-badge { font-size: 11px; padding: 0 0.45em; border-radius: 999px; background: var(--k-glass); }
+.ub-debug .k-db-close { font-size: 18px; line-height: 1; padding: 0 0.3em; }
+
+/* Status of the response: green, blue-grey, orange, red */
+.ub-debug .k-db-status-2 { background: var(--k-app); color: var(--k-app-text); padding: 0 0.5em; border-radius: var(--k-radius); }
+.ub-debug .k-db-status-3 { background: var(--k-surface); padding: 0 0.5em; border-radius: var(--k-radius); }
+.ub-debug .k-db-status-4 { background: var(--k-cause); color: var(--k-cause-text); padding: 0 0.5em; border-radius: var(--k-radius); }
+.ub-debug .k-db-status-5 { background: var(--k-error); color: var(--k-error-text); padding: 0 0.5em; border-radius: var(--k-radius); }
+
+/* Only the name is left when the bar is hidden */
+.ub-debug.k-db-minimized { right: auto; }
+.ub-debug.k-db-minimized .k-db-bar > :not(.k-db-logo),
+.ub-debug.k-db-minimized .k-db-panels { display: none; }
+
+/* The panels open above the bar */
+.ub-debug .k-db-panel {
+	max-height: 60vh; overflow: auto; padding: 0.8em 1em 1.2em;
+	background: var(--k-bg); color: var(--k-text); border-top: 2px solid var(--k-bar);
+	box-shadow: 0 -6px 18px var(--k-shadow);
+}
+.ub-debug h2 { margin: 0 0 0.6em; font-size: 1.15em; font-weight: 600; }
+.ub-debug h3 { margin: 1.1em 0 0.4em; font-size: 0.85em; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--k-muted); }
+.ub-debug p { margin: 0.4em 0; }
+.ub-debug .k-db-empty { color: var(--k-muted); }
+
+.ub-debug table { width: 100%; border-collapse: collapse; background: var(--k-surface); }
+.ub-debug th, .ub-debug td { padding: 0.3em 0.6em; border: solid var(--k-border); border-width: 1px 0; text-align: left; vertical-align: top; font-weight: normal; }
+.ub-debug thead th { font-size: 0.8em; text-transform: uppercase; letter-spacing: 0.04em; color: var(--k-muted); background: var(--k-bg); }
+.ub-debug th.k-db-key { width: 16em; color: var(--k-muted); overflow-wrap: anywhere; }
+.ub-debug td.k-db-number { text-align: right; white-space: nowrap; width: 7em; font-variant-numeric: tabular-nums; }
+.ub-debug td code, .ub-debug td pre { overflow-wrap: anywhere; white-space: pre-wrap; }
+.ub-debug tr.k-db-marked td, .ub-debug tr.k-db-marked th { background: var(--k-highlight); }
+.ub-debug tr.k-db-current td, .ub-debug tr.k-db-current th { background: var(--k-app); color: var(--k-app-text); }
+.ub-debug .k-db-tag { font-size: 11px; padding: 0 0.5em; border-radius: 999px; background: var(--k-cause); color: var(--k-cause-text); white-space: nowrap; }
+.ub-debug .k-db-filter { display: flex; flex-wrap: wrap; gap: 0.3em; align-items: center; margin-bottom: 0.6em; }
+.ub-debug .k-db-filter .k-db-tab { border-color: var(--k-edge); background: var(--k-surface); }
+.ub-debug .k-db-filter .k-db-tab[aria-pressed="false"] { opacity: 0.45; background: none; text-decoration: line-through; }
+.ub-debug .k-db-panel td > button { text-decoration: underline; color: var(--k-link); }
+.ub-debug .k-db-where { margin-top: 0.15em; font-size: 12px; color: var(--k-muted); font-family: var(--k-font-code); }
+.ub-debug .k-db-level { font-size: 11px; padding: 0 0.5em; border-radius: 999px; background: var(--k-notice); color: var(--k-notice-text); white-space: nowrap; }
+
+/* Timeline: one row for each benchmark, the bar placed by the script */
+.ub-debug .k-db-track { position: relative; height: 1.2em; min-width: 12em; background: var(--k-bg); border-radius: 3px; }
+.ub-debug .k-db-span { position: absolute; top: 0.2em; bottom: 0.2em; left: 0; width: 1%; min-width: 2px; border-radius: 2px; background: var(--k-chart-1); }
+.ub-debug .k-db-span.k-db-group-database { background: var(--k-chart-2); }
+.ub-debug .k-db-span.k-db-group-views { background: var(--k-chart-3); }
+.ub-debug .k-db-span.k-db-group-requests { background: var(--k-chart-4); }
+
+.ub-debug .k-db-columns { columns: 14em auto; margin: 0; padding: 0; list-style: none; }
+.ub-debug .k-db-columns li { overflow-wrap: anywhere; break-inside: avoid; }

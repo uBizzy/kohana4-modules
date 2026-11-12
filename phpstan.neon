@@ -1,0 +1,22 @@
+# Static analysis of the extra modules, with the rules of the framework.
+# Run with:   vendor/bin/phpstan analyse -c extra/phpstan.neon
+includes:
+	- ../phpstan.neon
+
+parameters:
+	# Only the extra modules are analysed ("!" replaces the list of the
+	# framework); the framework itself is read to know its classes
+	paths!:
+		- ub_debug/classes
+		- ub_storage/classes
+		- ub_log_reader/classes
+		- ub_settings/classes
+		- ub_autoload/classes
+
+	scanDirectories:
+		- ../system/classes
+		- ../modules
+
+	# The exceptions listed for the framework are for its own files:
+	# that they find nothing here is no mistake
+	reportUnmatchedIgnoredErrors: false

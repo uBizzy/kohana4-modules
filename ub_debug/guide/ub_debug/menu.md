@@ -1,0 +1,5 @@
+- Debug Bar
+   - [Overview](index)
+   - [Panels and Settings](panels)
+   - [Your Own Data](data)
+   - [What Is Hidden](security)

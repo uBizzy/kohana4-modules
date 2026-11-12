@@ -1,0 +1,33 @@
+/*
+ * Styles of the page that searches the logs. The colours are the
+ * variables of the theme (Theme::css(), config/theme.php), light or dark.
+ */
+html { color-scheme: var(--k-scheme); }
+.ub-log { margin: 0; padding: 1.5rem; font: 14px/1.5 var(--k-font); color: var(--k-text); background: var(--k-bg); }
+.ub-log header { display: flex; align-items: center; gap: 1rem; margin: 0 0 1rem; }
+.ub-log header .k-logo { height: 2rem; width: auto; }
+.ub-log h1 { margin: 0; font-size: 1.4rem; font-weight: 600; }
+.ub-log h2 { margin: 1.5rem 0 .5rem; font-size: 1rem; font-weight: 600; }
+.ub-log .k-theme-button { margin-left: auto; border-radius: 999px; font-size: .8rem; }
+.ub-log form { display: flex; flex-wrap: wrap; gap: .75rem; align-items: end; margin: 0 0 1rem; padding: 1rem; background: var(--k-surface); border: 1px solid var(--k-border); border-radius: calc(var(--k-radius) * 2); }
+.ub-log label { display: flex; flex-direction: column; gap: .2rem; font-size: .8rem; color: var(--k-muted); }
+.ub-log input, .ub-log select, .ub-log button { font: inherit; padding: .35rem .5rem; border: 1px solid var(--k-border); border-radius: var(--k-radius); background: var(--k-surface); color: var(--k-text); }
+.ub-log button { background: var(--k-bar); color: var(--k-bar-text); border-color: var(--k-edge); cursor: pointer; }
+.ub-log .ub-log-tabs { margin: 0 0 .5rem; }
+.ub-log .ub-log-note { margin: 0 0 1rem; color: var(--k-muted); }
+.ub-log table { width: 100%; border-collapse: collapse; background: var(--k-surface); border: 1px solid var(--k-border); }
+.ub-log th, .ub-log td { padding: .45rem .6rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--k-border); }
+.ub-log th { background: var(--k-bar); color: var(--k-bar-text); font-size: .8rem; }
+.ub-log td.ub-log-time { white-space: nowrap; color: var(--k-muted); }
+.ub-log td.ub-log-number { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.ub-log .ub-log-message { white-space: pre-wrap; overflow-wrap: anywhere; }
+.ub-log .ub-log-where { font-size: .8rem; color: var(--k-muted); overflow-wrap: anywhere; }
+.ub-log .ub-log-level { display: inline-block; padding: 0 .5rem; border-radius: 999px; font-size: .75rem; font-weight: 600; }
+.ub-log .ub-log-EMERGENCY, .ub-log .ub-log-ALERT, .ub-log .ub-log-CRITICAL, .ub-log .ub-log-ERROR { background: var(--k-error); color: var(--k-error-text); }
+.ub-log .ub-log-WARNING, .ub-log .ub-log-NOTICE { background: var(--k-cause); color: var(--k-cause-text); }
+.ub-log .ub-log-INFO { background: var(--k-app); color: var(--k-app-text); }
+.ub-log .ub-log-DEBUG { background: var(--k-bar); color: var(--k-bar-text); }
+.ub-log details { margin-top: .3rem; }
+.ub-log summary { cursor: pointer; font-size: .8rem; color: var(--k-muted); }
+.ub-log pre { margin: .3rem 0 0; padding: .6rem; background: var(--k-bg); border-radius: var(--k-radius); font: .75rem/1.45 var(--k-font-code); white-space: pre-wrap; overflow-wrap: anywhere; }
+.ub-log a { color: var(--k-link); }
