@@ -5,7 +5,7 @@ The Debug Bar module puts a bar at the bottom of every page while you develop. I
 ```php
 // application/bootstrap.php
 Kohana::modules([
-	'ub_debug' => DOCROOT.'extra/ub_debug',
+	'ub_debug' => MODPATH.'ub_debug',
 ]);
 ```
 

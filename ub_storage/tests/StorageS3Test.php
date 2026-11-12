@@ -53,7 +53,12 @@ class UB_StorageS3Test extends UB_Storage_DriverTestCase
 		if ( ! static::$bucket_made)
 		{
 			// "PUT /bucket/" makes the bucket; the answer says so when it is there already
-			(new ReflectionMethod($storage, '_request'))->invoke($storage, 'PUT', '')->execute();
+			$response = (new ReflectionMethod($storage, '_request'))->invoke($storage, 'PUT', '')->execute();
+
+			if ($response->status() >= 400 AND ! str_contains((string) $response->body(), 'BucketAlready'))
+			{
+				$this->fail('The bucket of the tests could not be made: '.$response->status().' '.$response->body());
+			}
 
 			static::$bucket_made = true;
 		}

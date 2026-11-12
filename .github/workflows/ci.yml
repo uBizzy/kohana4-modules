@@ -1,7 +1,7 @@
-# Checks every push and pull request, on each supported PHP version, with
-# the rules of the framework: code style, types, static analysis and the
-# tests. The modules are checked where they live in a project: in the
-# extra/ directory of Kohana 4.
+# Checks every push and pull request, on each supported PHP version. The
+# modules are checked where they live in a project: copied into the
+# modules/ directory of Kohana 4, with every check of the framework
+# (code style, types, class loading, the tests) and static analysis.
 #
 # Tests that need a database, FTP or S3 server are skipped here.
 name: CI
@@ -29,30 +29,33 @@ jobs:
         with:
           repository: uBizzy/kohana4
 
-      - name: Check out the modules into extra/
+      - name: Check out this repository beside it
         uses: actions/checkout@v4
         with:
-          path: extra
+          path: kohana4-modules
+
+      - name: Copy the modules into modules/
+        run: cp -r kohana4-modules/ub_* modules/
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: mbstring, intl, gd, exif, mysqli, pdo_mysql, pdo_pgsql, pdo_sqlite, sodium, zip, ftp
-          ini-values: error_reporting=E_ALL
+          extensions: mbstring, intl, gd, exif, imagick, mysqli, pdo_mysql, pdo_pgsql, pdo_sqlite, sodium, redis, apcu, memcached, zip, ftp
+          ini-values: apc.enable_cli=1, error_reporting=E_ALL
           coverage: none
+
+      - name: Install the en_US locale used by the tests
+        run: |
+          sudo locale-gen en_US.UTF-8
+          sudo update-locale
 
       - name: Install Composer packages
         run: composer install --no-interaction --no-progress
 
-      - name: Code style
-        run: vendor/bin/phpcs -q extra
+      # The checks of the framework find the modules in modules/
+      - name: Checks and tests of the framework, with the modules
+        run: docker/check.sh
 
-      - name: Everything has a type
-        run: php docker/check-types.php extra/*/classes
-
-      - name: Static analysis
-        run: vendor/bin/phpstan analyse -c extra/phpstan.neon --no-progress --memory-limit=1G
-
-      - name: Tests
-        run: vendor/bin/phpunit -c extra/phpunit.xml
+      - name: Static analysis of the modules
+        run: vendor/bin/phpstan analyse -c kohana4-modules/phpstan.neon --no-progress --memory-limit=1G

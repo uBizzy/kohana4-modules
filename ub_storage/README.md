@@ -5,7 +5,7 @@ Files kept on the disk of the server, on an FTP server or in S3, behind the same
 ```php
 // application/bootstrap.php
 Kohana::modules([
-	'ub_storage' => DOCROOT.'extra/ub_storage',
+	'ub_storage' => MODPATH.'ub_storage',
 ]);
 ```
 

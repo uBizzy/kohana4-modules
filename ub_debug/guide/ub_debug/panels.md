@@ -21,7 +21,7 @@
 
 ## Settings
 
-Copy `extra/ub_debug/config/ub_debug.php` to `application/config/ub_debug.php` and change what you need.
+Copy `modules/ub_debug/config/ub_debug.php` to `application/config/ub_debug.php` and change what you need.
 
 ```php
 // application/config/ub_debug.php

@@ -4,13 +4,17 @@ Modules for [Kohana 4](https://github.com/uBizzy/kohana4) that are not part of i
 
 ## Installing
 
-This repository is the `extra/` directory of a Kohana 4 project. From the root of the project, beside `system/` and `modules/`:
+The modules are not shipped with the framework. Copy the ones you want into the `modules/` directory of your Kohana 4 project, beside `orm`, `database` and the others:
 
 ```bash
-git clone https://github.com/uBizzy/kohana4-modules extra
+git clone https://github.com/uBizzy/kohana4-modules
 ```
 
-Then enable the modules you want (see "Using one" below). The framework ignores the `extra/` directory in its own repository, so the two do not mix.
+```bash
+cp -r kohana4-modules/ub_debug modules/
+```
+
+Then enable them in `application/bootstrap.php` (see "Using one" below). The framework ignores `modules/ub_*` in its own repository, so the two do not mix.
 
 What changed is in [CHANGELOG.md](CHANGELOG.md), what is planned in [TODO.md](TODO.md).
 
@@ -29,7 +33,7 @@ What changed is in [CHANGELOG.md](CHANGELOG.md), what is planned in [TODO.md](TO
 ```php
 // application/bootstrap.php
 Kohana::modules([
-	'ub_debug' => DOCROOT.'extra/ub_debug',
+	'ub_debug' => MODPATH.'ub_debug',
 ]);
 ```
 
@@ -44,7 +48,7 @@ shows once the module is enabled.
 - **Its own names everywhere**: `config/ub_name.php`, `views/ub_name/`,
   `guide/ub_name/`.
 - **Nothing in the core knows it.** A module uses the public parts of
-  the framework; the framework never calls a module of this directory.
+  the framework; the framework never calls a module of this repository.
 - **The same quality as the core**: types on everything, comments, tests
   in `tests/`, and clean under the code style and static analysis rules
   of the framework.
@@ -57,31 +61,19 @@ shows once the module is enabled.
 
 ## Checking them
 
-`docker/check.sh` of the framework checks the modules of `extra/` after
-the core, with the same rules, when the directory is there. On their
-own, from the project root:
+Once the modules are in `modules/`, the checks of the framework find them: code style, types, class loading and the tests, guide pages included. From the project root:
 
 ```bash
-vendor/bin/phpcs -q extra
+docker/check.sh
 ```
+
+Static analysis has a list of directories, so the modules have a file of their own for it. With this repository cloned into the project root:
 
 ```bash
-php docker/check-types.php extra/*/classes
+vendor/bin/phpstan analyse -c kohana4-modules/phpstan.neon
 ```
 
-```bash
-vendor/bin/phpstan analyse -c extra/phpstan.neon
-```
-
-```bash
-vendor/bin/phpunit -c extra/phpunit.xml
-```
-
-A new module is added to the `paths` of `extra/phpstan.neon`; the other
-three find it by themselves.
-
-The same four checks run on GitHub for every push, with the framework
-checked out around the modules: see `.github/workflows/ci.yml`.
+A new module is added to the `paths` of `phpstan.neon`; the other checks find it by themselves. The same checks run on GitHub for every push: see `.github/workflows/ci.yml`.
 
 ## License and links
 

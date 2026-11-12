@@ -8,7 +8,7 @@
  *
  *     // application/bootstrap.php
  *     Kohana::modules([
- *         'ub_debug' => DOCROOT.'extra/ub_debug',
+ *         'ub_debug' => MODPATH.'ub_debug',
  *     ]);
  *
  * [!!] The bar is only shown in the DEVELOPMENT environment. This is

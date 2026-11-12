@@ -5,11 +5,11 @@ The Storage module keeps files somewhere: on the disk of the server, on an FTP s
 ```php
 // application/bootstrap.php
 Kohana::modules([
-	'ub_storage' => DOCROOT.'extra/ub_storage',
+	'ub_storage' => MODPATH.'ub_storage',
 ]);
 ```
 
-Copy `extra/ub_storage/config/ub_storage.php` to `application/config/` and set up the places you use: see [Drivers](drivers).
+Copy `modules/ub_storage/config/ub_storage.php` to `application/config/` and set up the places you use: see [Drivers](drivers).
 
 ## Storing and reading
 

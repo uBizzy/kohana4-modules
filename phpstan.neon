@@ -1,17 +1,20 @@
-# Static analysis of the extra modules, with the rules of the framework.
-# Run with:   vendor/bin/phpstan analyse -c extra/phpstan.neon
+# Static analysis of the modules of this repository, with the rules of the
+# framework. It expects this repository in a directory of the project root
+# (any name), and its modules copied into modules/. From the project root:
+#
+#     vendor/bin/phpstan analyse -c kohana4-modules/phpstan.neon
 includes:
 	- ../phpstan.neon
 
 parameters:
-	# Only the extra modules are analysed ("!" replaces the list of the
+	# Only these modules are analysed ("!" replaces the list of the
 	# framework); the framework itself is read to know its classes
 	paths!:
-		- ub_debug/classes
-		- ub_storage/classes
-		- ub_log_reader/classes
-		- ub_settings/classes
-		- ub_autoload/classes
+		- ../modules/ub_debug/classes
+		- ../modules/ub_storage/classes
+		- ../modules/ub_log_reader/classes
+		- ../modules/ub_settings/classes
+		- ../modules/ub_autoload/classes
 
 	scanDirectories:
 		- ../system/classes

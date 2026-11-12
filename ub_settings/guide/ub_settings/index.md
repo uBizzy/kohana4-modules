@@ -16,7 +16,7 @@ Kohana::modules([
 	'database'    => MODPATH.'database',
 	'migration'   => MODPATH.'migration',
 	'minion'      => MODPATH.'minion',
-	'ub_settings' => DOCROOT.'extra/ub_settings',
+	'ub_settings' => MODPATH.'ub_settings',
 ]);
 ```
 

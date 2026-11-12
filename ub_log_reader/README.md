@@ -5,7 +5,7 @@ Search the logs of the application: by level, text, date, the reference code of 
 ```php
 // application/bootstrap.php
 Kohana::modules([
-	'ub_log_reader' => DOCROOT.'extra/ub_log_reader',
+	'ub_log_reader' => MODPATH.'ub_log_reader',
 ]);
 ```
 

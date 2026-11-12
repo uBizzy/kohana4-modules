@@ -5,7 +5,7 @@ The Log Reader searches the logs of the application: by level, text, date, the r
 ```php
 // application/bootstrap.php
 Kohana::modules([
-	'ub_log_reader' => DOCROOT.'extra/ub_log_reader',
+	'ub_log_reader' => MODPATH.'ub_log_reader',
 ]);
 ```
 

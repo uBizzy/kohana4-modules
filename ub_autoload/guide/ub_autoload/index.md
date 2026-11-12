@@ -13,12 +13,12 @@ It also loads helpers and classes of your own that live outside `classes`.
 ```php
 // application/bootstrap.php
 Kohana::modules([
-	'ub_autoload' => DOCROOT.'extra/ub_autoload',
+	'ub_autoload' => MODPATH.'ub_autoload',
 ]);
 ```
 
 1. Put the library in a `vendor` directory: `application/vendor/phpmailer/`.
-2. Copy `extra/ub_autoload/config/ub_autoload.php` to `application/config/` and say where the classes are:
+2. Copy `modules/ub_autoload/config/ub_autoload.php` to `application/config/` and say where the classes are:
 
 ```php
 // application/config/ub_autoload.php

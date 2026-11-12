@@ -372,9 +372,8 @@ class UB_Storage_S3 extends UB_Storage {
 
 		$request = Request::factory($this->_base().$uri.(($query === []) ? '' : '?'.$this->_query($query)))->method($method);
 
-		// The host is set by the client from the address
-		unset($headers['host']);
-
+		// The host is sent as it was signed, whatever headers the request
+		// took over from the one that is being answered
 		foreach ($headers + ['authorization' => $authorization] as $name => $value)
 		{
 			$request->headers($name, $value);

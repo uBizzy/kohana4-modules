@@ -5,7 +5,7 @@ Settings that are saved in the database, to be changed while the application run
 ```php
 // application/bootstrap.php
 Kohana::modules([
-	'ub_settings' => DOCROOT.'extra/ub_settings',
+	'ub_settings' => MODPATH.'ub_settings',
 ]);
 ```
 

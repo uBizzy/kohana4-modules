@@ -5,7 +5,7 @@ Loads classes that are not written the Kohana way: libraries of others (PHPMaile
 ```php
 // application/bootstrap.php
 Kohana::modules([
-	'ub_autoload' => DOCROOT.'extra/ub_autoload',
+	'ub_autoload' => MODPATH.'ub_autoload',
 ]);
 ```
 
