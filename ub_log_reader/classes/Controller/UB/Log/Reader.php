@@ -62,7 +62,9 @@ class Controller_UB_Log_Reader extends Controller {
 		// The entries themselves, or the messages that come most often
 		$top = ($this->request->query('show') === 'top');
 
-		$view = View::factory('ub_log_reader/page', [
+		// The page: its view sees one variable, $page
+		View::set_global('page', [
+			'title'   => 'Log Reader',
 			'filters' => $filters,
 			'limit'   => $limit,
 			'entries' => $top ? [] : $reader->search($filters, $limit),
@@ -75,7 +77,7 @@ class Controller_UB_Log_Reader extends Controller {
 		// What the logs say is not for a cache to keep
 		$this->response
 			->headers('cache-control', 'no-store')
-			->body($view->render());
+			->body(View::factory('ub_log_reader/page')->render());
 	}
 
 }

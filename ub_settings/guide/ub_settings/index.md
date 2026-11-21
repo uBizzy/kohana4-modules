@@ -8,6 +8,12 @@ UB_Settings::set('site.name', 'My Site');
 echo UB_Settings::get('site.name', 'Untitled');
 ```
 
+## Requirements
+
+- Kohana 4 and the database module, on MySQL, MariaDB, PostgreSQL or SQLite.
+- The migration and minion modules, to create the table with `./minion settings:migration`. Without them, create the table yourself from `ub_settings/create_settings_table.php` of the module.
+- No extension of PHP beyond those of the framework and the driver of your database.
+
 ## Setting it up
 
 ```php

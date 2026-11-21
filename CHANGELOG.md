@@ -1,5 +1,11 @@
 # Changes
 
+## After the first version (not released yet)
+
+- **ub_log** (new): a writer that puts the log of the framework in a table. The eight levels of the framework plus a type for each message (`upload.failed`), the code of the request and of the error, who and from where. Nothing of the request is stored by itself and secrets in the context are masked. Alerts by email with a limit, a search helper and a clean-up task.
+- **ub_email** (new): email with PHPMailer (loaded by ub_autoload). HTML with a text version, views, a layout, attachments, DKIM. The connection is encrypted and checked; while developing, every message can be redirected to the developer.
+- **ub_message** (new): messages for the visitor kept in the session until shown, floating or inline. Text is escaped unless the message says it is HTML; works under a strict Content-Security-Policy; class names of the framework theme or of Bulma.
+
 ## First version (2026-11-15)
 
 The first version, for Kohana 4.0.0 "renatus".

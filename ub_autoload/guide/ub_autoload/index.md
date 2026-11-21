@@ -8,6 +8,11 @@ $mail = new PHPMailer\PHPMailer\PHPMailer;
 
 It also loads helpers and classes of your own that live outside `classes`.
 
+## Requirements
+
+- Kohana 4 and nothing else: no other module, no extension of PHP beyond those of the framework.
+- The libraries it loads are not part of it: you put them in a `vendor` directory.
+
 ## Setting it up
 
 ```php
@@ -214,4 +219,4 @@ The config file has the same name and the same four keys, so it can be kept. Wha
 - The class is `UB_Autoload`. The old name, `UB_Autoloader`, still works.
 - A relative path of `classmap` is found in the `vendor` directories, as the config always said. Before, only absolute paths worked there.
 - A path that does not exist is an error. Before, it was skipped without a word.
-- `MODPATH` ends with a `/`: write `MODPATH.'ub_core/vendor/phpmailer/src'`, or just `'phpmailer/src'` when the library is in the `vendor` directory of an enabled module.
+- `MODPATH` ends with a `/`: write `MODPATH.'my_module/vendor/phpmailer/src'`, or just `'phpmailer/src'` when the library is in the `vendor` directory of an enabled module.

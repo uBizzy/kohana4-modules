@@ -26,6 +26,9 @@ What changed is in [CHANGELOG.md](CHANGELOG.md), what is planned in [TODO.md](TO
 | `ub_storage` | `UB_Storage` | Files kept on the disk, on an FTP server or in S3, behind the same methods. |
 | `ub_log_reader` | `UB_Log_Reader` | Search the logs by level, text, date, error code or request; the most frequent errors. On the web in development, or in production for listed addresses. |
 | `ub_settings` | `UB_Settings` | Settings that are saved in the database and changed while the application runs. |
+| `ub_log` | `UB_Log` | The log of the framework in a table, to search with SQL; a type for each message; alerts by email. |
+| `ub_email` | `UB_Email` | Sends email with PHPMailer: HTML with a text version, views, attachments. |
+| `ub_message` | `UB_Message` | Messages for the visitor that survive a redirect: saved, failed, take care. |
 | `ub_autoload` | `UB_Autoload` | Loads libraries of others (PHPMailer, HTML Purifier, TCPDF), and helpers and classes of your own that are not written the Kohana way. |
 
 ## Using one

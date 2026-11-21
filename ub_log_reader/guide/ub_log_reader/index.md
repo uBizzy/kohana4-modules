@@ -11,6 +11,12 @@ Kohana::modules([
 
 There are three ways to use it: a command, a page, and a class. With many logs, an [index](#the-index) makes all three fast.
 
+## Requirements
+
+- Kohana 4, with a file log attached (`Log_File` or `Log_JSON`): those are the logs it reads.
+- The minion module, for the commands.
+- For the index only: the `pdo_sqlite` extension of PHP. Without it the files are read each time.
+
 ## The command
 
 ```text

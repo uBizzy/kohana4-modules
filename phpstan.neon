@@ -15,6 +15,9 @@ parameters:
 		- ../modules/ub_log_reader/classes
 		- ../modules/ub_settings/classes
 		- ../modules/ub_autoload/classes
+		- ../modules/ub_log/classes
+		- ../modules/ub_email/classes
+		- ../modules/ub_message/classes
 
 	scanDirectories:
 		- ../system/classes
@@ -23,3 +26,10 @@ parameters:
 	# The exceptions listed for the framework are for its own files:
 	# that they find nothing here is no mistake
 	reportUnmatchedIgnoredErrors: false
+
+	# PHPMailer is a library the application brings: it is not here to
+	# be read
+	ignoreErrors:
+		-
+			message: '#PHPMailer#'
+			path: ../modules/ub_email/classes/UB/Email.php

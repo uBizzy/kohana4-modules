@@ -13,6 +13,11 @@ That is all: there is nothing to call and nothing to add to your templates.
 
 ![The Database panel of the bar](database.png)
 
+## Requirements
+
+- Kohana 4 and nothing else: no other module, no extension of PHP beyond those of the framework.
+- Used when they are there: the database module (the queries), the cache module (the cache panel) and OPcache (the server panel). A panel whose module is not enabled stays empty.
+
 ## What you see
 
 - **On the bar**: the status of the response, the time, the memory, and the controller and action that made the page.

@@ -2,20 +2,20 @@
 /**
  * The page that searches the logs.
  *
- * $filters  what the form holds: level, text, reference, request, from, to
- * $limit    how many entries are asked for
- * $entries  the entries that fit, see UB_Log_Reader::search()
- * $top      the most frequent messages, see UB_Log_Reader::top(); null when the entries are shown
- * $indexed  is an index of the logs used?
- * $days     the days there are logs of
- * $levels   the names of the levels
+ * $page['filters']  what the form holds: level, text, reference, request, from, to
+ * $page['limit']    how many entries are asked for
+ * $page['entries']  the entries that fit, see UB_Log_Reader::search()
+ * $page['top']      the most frequent messages, see UB_Log_Reader::top(); null when the entries are shown
+ * $page['indexed']  is an index of the logs used?
+ * $page['days']     the days there are logs of
+ * $page['levels']   the names of the levels
  *
  * No inline event handlers and no style attributes, so the
  * page works under a strict Content-Security-Policy. Everything that
  * comes from a log is written as text.
  */
 $nonce = HTML::chars(Security::nonce());
-$link  = fn (array $change): string => HTML::chars(URL::site(Route::get('ub-log-reader')->uri()).URL::query($change + array_filter($filters) + ['limit' => $limit], false));
+$link  = fn (array $change): string => HTML::chars(URL::site(Route::get('ub-log-reader')->uri()).URL::query($change + array_filter($page['filters']) + ['limit' => $page['limit']], false));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,37 +44,37 @@ $link  = fn (array $change): string => HTML::chars(URL::site(Route::get('ub-log-
 	<label>Level, and worse
 		<select name="level">
 			<option value="">any</option>
-			<?php foreach ($levels as $level): ?>
-			<option value="<?php echo HTML::chars($level) ?>"<?php echo (strtoupper($filters['level']) === $level) ? ' selected' : '' ?>><?php echo HTML::chars($level) ?></option>
+			<?php foreach ($page['levels'] as $level): ?>
+			<option value="<?php echo HTML::chars($level) ?>"<?php echo (strtoupper($page['filters']['level']) === $level) ? ' selected' : '' ?>><?php echo HTML::chars($level) ?></option>
 			<?php endforeach ?>
 		</select>
 	</label>
 	<label>Text
-		<input type="search" name="text" value="<?php echo HTML::chars($filters['text']) ?>">
+		<input type="search" name="text" value="<?php echo HTML::chars($page['filters']['text']) ?>">
 	</label>
 	<label>Error code
-		<input type="text" name="reference" size="10" value="<?php echo HTML::chars($filters['reference']) ?>">
+		<input type="text" name="reference" size="10" value="<?php echo HTML::chars($page['filters']['reference']) ?>">
 	</label>
 	<label>Request
-		<input type="text" name="request" size="10" value="<?php echo HTML::chars($filters['request']) ?>">
+		<input type="text" name="request" size="10" value="<?php echo HTML::chars($page['filters']['request']) ?>">
 	</label>
 	<label>From
-		<input type="text" name="from" size="12" placeholder="2026-11-12" value="<?php echo HTML::chars($filters['from']) ?>">
+		<input type="text" name="from" size="12" placeholder="2026-11-12" value="<?php echo HTML::chars($page['filters']['from']) ?>">
 	</label>
 	<label>To
-		<input type="text" name="to" size="12" placeholder="today" value="<?php echo HTML::chars($filters['to']) ?>">
+		<input type="text" name="to" size="12" placeholder="today" value="<?php echo HTML::chars($page['filters']['to']) ?>">
 	</label>
 	<label>At most
-		<input type="number" name="limit" min="1" max="<?php echo UB_Log_Reader::MAX ?>" value="<?php echo (int) $limit ?>">
+		<input type="number" name="limit" min="1" max="<?php echo UB_Log_Reader::MAX ?>" value="<?php echo (int) $page['limit'] ?>">
 	</label>
-	<?php if ($top !== null): ?>
+	<?php if ($page['top'] !== null): ?>
 	<input type="hidden" name="show" value="top">
 	<?php endif ?>
 	<button type="submit">Search</button>
 </form>
 
 <p class="ub-log-tabs">
-	<?php if ($top === null): ?>
+	<?php if ($page['top'] === null): ?>
 		<strong>Entries</strong> &middot; <a href="<?php echo $link(['show' => 'top']) ?>">Most frequent</a>
 	<?php else: ?>
 		<a href="<?php echo $link([]) ?>">Entries</a> &middot; <strong>Most frequent</strong>
@@ -82,23 +82,23 @@ $link  = fn (array $change): string => HTML::chars(URL::site(Route::get('ub-log-
 </p>
 
 <p class="ub-log-note">
-	<?php if ($top === null): ?>
-	<?php echo count($entries) ?> <?php echo (count($entries) === 1) ? 'entry' : 'entries' ?>, the newest first.
+	<?php if ($page['top'] === null): ?>
+	<?php echo count($page['entries']) ?> <?php echo (count($page['entries']) === 1) ? 'entry' : 'entries' ?>, the newest first.
 	<?php else: ?>
-	<?php echo count($top) ?> <?php echo (count($top) === 1) ? 'message' : 'messages' ?>, the most frequent first; messages that differ only in their numbers are counted as one.
+	<?php echo count($page['top']) ?> <?php echo (count($page['top']) === 1) ? 'message' : 'messages' ?>, the most frequent first; messages that differ only in their numbers are counted as one.
 	<?php endif ?>
-	Logs of <?php echo count($days) ?> <?php echo (count($days) === 1) ? 'day' : 'days' ?><?php echo $days ? ', from '.HTML::chars((string) end($days)).' to '.HTML::chars((string) reset($days)) : '' ?>.
+	Logs of <?php echo count($page['days']) ?> <?php echo (count($page['days']) === 1) ? 'day' : 'days' ?><?php echo $page['days'] ? ', from '.HTML::chars((string) end($page['days'])).' to '.HTML::chars((string) reset($page['days'])) : '' ?>.
 	What looks like a password, a token or a key is shown as ***.
-	<?php echo $indexed ? 'The index is used.' : '' ?>
+	<?php echo $page['indexed'] ? 'The index is used.' : '' ?>
 </p>
 
-<?php if ($entries): ?>
+<?php if ($page['entries']): ?>
 <table>
 	<thead>
 		<tr><th>Time</th><th>Level</th><th>Message</th></tr>
 	</thead>
 	<tbody>
-	<?php foreach ($entries as $entry): ?>
+	<?php foreach ($page['entries'] as $entry): ?>
 		<tr>
 			<td class="ub-log-time"><?php echo HTML::chars(date('Y-m-d H:i:s', (int) $entry['time'])) ?></td>
 			<td><span class="ub-log-level ub-log-<?php echo HTML::chars((string) $entry['level']) ?>"><?php echo HTML::chars((string) $entry['level']) ?></span></td>
@@ -131,13 +131,13 @@ $link  = fn (array $change): string => HTML::chars(URL::site(Route::get('ub-log-
 </table>
 <?php endif ?>
 
-<?php if ($top): ?>
+<?php if ($page['top']): ?>
 <table>
 	<thead>
 		<tr><th>Times</th><th>Level</th><th>First</th><th>Last</th><th>Message</th></tr>
 	</thead>
 	<tbody>
-	<?php foreach ($top as $group): ?>
+	<?php foreach ($page['top'] as $group): ?>
 		<tr>
 			<td class="ub-log-number"><?php echo number_format($group['count']) ?></td>
 			<td><span class="ub-log-level ub-log-<?php echo HTML::chars($group['level']) ?>"><?php echo HTML::chars($group['level']) ?></span></td>

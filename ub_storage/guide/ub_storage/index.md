@@ -11,6 +11,13 @@ Kohana::modules([
 
 Copy `modules/ub_storage/config/ub_storage.php` to `application/config/` and set up the places you use: see [Drivers](drivers).
 
+## Requirements
+
+- Kohana 4. No other module.
+- The `local` driver needs nothing more.
+- The `ftp` driver needs the `ftp` extension of PHP.
+- The `s3` driver needs the `curl` and `simplexml` extensions of PHP.
+
 ## Storing and reading
 
 ```php
